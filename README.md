@@ -1,2 +1,2 @@
-# AutoAid
-Tools for your Automation
+# SeleniumSpy
+Tool to identify web objects for automation

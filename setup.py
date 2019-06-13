@@ -9,9 +9,9 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'autoaid'
-DESCRIPTION = 'Tools for your Automation'
-URL = 'https://github.com/0xyasser/autoaid'
+NAME = 'SeleniumSpy'
+DESCRIPTION = 'Tool to identify web objects for automation'
+URL = 'https://github.com/0xyasser/seleniumspy'
 EMAIL = 'yalshala@gmail.com'
 AUTHOR = 'Yasser A'
 REQUIRES_PYTHON = '>=3.7.0'
