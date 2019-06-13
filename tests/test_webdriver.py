@@ -7,15 +7,15 @@ class WebDriverTestCase(unittest.TestCase):
     def setUp(self):
         pass
     
-    # def test__init__chrome(self):
-    #         wd.WebDriver('chrome', headless=True).driver.close()
+    def test__init__chrome(self):
+            wd.WebDriver('chrome', headless=True).driver.close()
     
-    # def test__init__firefox(self):
-    #         wd.WebDriver('firefox', headless=True).driver.close()
+    def test__init__firefox(self):
+            wd.WebDriver('firefox', headless=True).driver.close()
     
-    # @unittest.skipUnless(sys.platform.startswith("darwin"), "requires MacOS")
-    # def test__init__safari(self):
-    #         wd.WebDriver('safari').driver.close()
+    @unittest.skipUnless(sys.platform.startswith("darwin"), "requires MacOS")
+    def test__init__safari(self):
+            wd.WebDriver('safari').driver.close()
 
     def test_identify_browser(self):
         with self.assertRaises(NotImplementedError):
