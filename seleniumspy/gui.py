@@ -1,4 +1,0 @@
-import tkinter as gui
-
-
-

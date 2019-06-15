@@ -1,3 +1,13 @@
+#                _          _                           _
+#               | |        | |                         | |
+#  __      _____| |__   ___| | ___ _ __ ___   ___ _ __ | |_ ___ _ __  _   _
+#  \ \ /\ / / _ \ '_ \ / _ \ |/ _ \ '_ ` _ \ / _ \ '_ \| __/ __| '_ \| | | |
+#   \ V  V /  __/ |_) |  __/ |  __/ | | | | |  __/ | | | |_\__ \ |_) | |_| |
+#    \_/\_/ \___|_.__/ \___|_|\___|_| |_| |_|\___|_| |_|\__|___/ .__/ \__, |
+#                                                              | |     __/ |
+#                                                              |_|    |___/
+
+
 # Note: To use the 'upload' functionality of this file, you must:
 #   $ pip install twine
 
@@ -9,6 +19,11 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
+NAME = 'webelementspy'
+DESCRIPTION = 'web element identifier for humans'
+URL = 'https://github.com/0xYasser/webelementspy'
+AUTHOR = 'Yasser A'
+EMAIL = 'yalshalaan@gmail.com'
 REQUIRES_PYTHON = '>=3.7.0'
 VERSION = None
 
@@ -85,15 +100,15 @@ class UploadCommand(Command):
 
 # Where the magic happens:
 setup(
-    name=about['____title____'],
+    name=NAME,
     version=about['__version__'],
-    description=about['__description__'],
+    description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author=about['__author__'],
-    author_email=about['__author_email__'],
+    author=AUTHOR,
+    author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
-    url=about['__url__'],
+    url=URL,
     packages=find_packages(
         exclude=['tests', 'docs']),
     # If your package is a single module, use this instead of 'packages':

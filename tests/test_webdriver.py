@@ -1,5 +1,5 @@
 import unittest, sys, pathlib
-from seleniumspy import webdriver as wd
+from webelementspy import webdriver as wd
 
 
 class WebDriverTestCase(unittest.TestCase):

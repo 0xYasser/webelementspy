@@ -2,7 +2,7 @@
 #pylint: disable=import-error
 
 """
-webelementspy.spy.py
+webelementspy.spy
 ~~~~~~~~~~~~
 This file contain spy functions 
 :copyright: (c) 2019 by Yasser.
