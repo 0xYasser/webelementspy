@@ -60,5 +60,5 @@ Run:
         $ cd webelementspy
         $ python spycli.py -l
 
-.. image:: https://0sl.s3.amazonaws.com/tP1CHsD.gif
+.. image:: /docs/demo.gif
 
