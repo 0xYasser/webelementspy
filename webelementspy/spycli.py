@@ -14,8 +14,8 @@ import argparse
 import json
 
 
-defaults = {'live': False, 'url': 'https://github.com', 'browser': 'chrome',
-            'executable': None}
+defaults = {'live': False, 'url': 'https://github.com',
+            'browser': 'chrome', 'wp': (0, 0), 'ws': (898, 823), 'executable': None}
 
 class SpyCLI():
     def __init__(self, args):
@@ -23,6 +23,10 @@ class SpyCLI():
         self.browser = args.browser if args.browser else defaults['browser']
         self.url = args.url if args.url else defaults['url']
         self.executable = args.executable if args.executable else defaults['executable']
+        self.window_position = args.window_position if args.window_position else defaults[
+            'wp']
+        self.window_size = args.window_size if args.window_size else defaults[
+            'ws']
         self.spyer = self.init_driver()
         self.main_loop()
 
@@ -42,7 +46,8 @@ class SpyCLI():
             self.spyer.close()
 
     def init_driver(self):
-        return Spy(self.browser, self.url, self.executable)
+        driver = Spy(self.browser, self.url, self.executable, wp=self.window_position, ws=self.window_size)
+        return driver
 
     def printer(self, text):
         data = self.output_handler(text)
@@ -76,6 +81,12 @@ if __name__ == '__main__':
   parser.add_argument(
       '-b', '--browser', help='specify browser to run', action='store')
   
+  parser.add_argument(
+      '-wp', '--window-position', help='specify brwoser window position', action='store', type=tuple)
+
+  parser.add_argument(
+      '-ws', '--window-size', help='specify brwoser window size', action='store', type=tuple)
+
   parser.add_argument(
       '-e', '--executable', help='specify webdriver executable path', action='store')
 
