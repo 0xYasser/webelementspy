@@ -9,11 +9,6 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = 'SeleniumSpy'
-DESCRIPTION = 'Tool to identify web objects for automation'
-URL = 'https://github.com/0xyasser/seleniumspy'
-EMAIL = 'yalshalaan@gmail.com'
-AUTHOR = 'Yasser A'
 REQUIRES_PYTHON = '>=3.7.0'
 VERSION = None
 
@@ -90,15 +85,15 @@ class UploadCommand(Command):
 
 # Where the magic happens:
 setup(
-    name=NAME,
+    name=about['____title____'],
     version=about['__version__'],
-    description=DESCRIPTION,
+    description=about['__description__'],
     long_description=long_description,
     long_description_content_type='text/markdown',
-    author=AUTHOR,
-    author_email=EMAIL,
+    author=about['__author__'],
+    author_email=about['__author_email__'],
     python_requires=REQUIRES_PYTHON,
-    url=URL,
+    url=about['__url__'],
     packages=find_packages(
         exclude=['tests', 'docs']),
     # If your package is a single module, use this instead of 'packages':
