@@ -8,6 +8,7 @@ Tool to identify web objects for automation written in Python
 Install:
 ====
 .. code-block:: bash
+
     $ git clone git@github.com:0xYasser/webelementspy.git
     $ cd webelementspy
     $ pip install -r requirements.txt
@@ -18,6 +19,7 @@ usage:
 ====
 
 .. code-block:: bash
+
         $ python spycli.py -h
         usage: spycli.py [-h] [-b BROWSER] [-e EXECUTABLE] [-u URL] [-l]
 
