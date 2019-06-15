@@ -19,12 +19,13 @@ Usage:
 ====
 
 there are two modes:
-    1. onlcick (default)
+    1. onclick (default)
         will output ids only on clicked objects
     2. live
         will output ids on moseover events and on click event will output ids in different color
 
 defaults:
+
 .. code-block:: gherkin
 
         defaults = {'live': False, 'url': 'https://github.com', 'browser': 'chrome', 'executable': None }
