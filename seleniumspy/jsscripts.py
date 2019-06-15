@@ -4,12 +4,12 @@
 """
 seleniumspy.jsscripts
 ~~~~~~~~~~~~
-This file contain JS scripts to be enjected to webdriver
+This file contain JS scripts to be injected to webdriver
 :copyright: (c) 2019 by Yasser.
 :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['js_init', 'js_capture', 'js_async_lsitner', 'js_raw_html']
+__all__ = ['js_init', 'js_start_listner', 'js_listner_capture', 'js_raw_html']
 
 js_init = {}
 js_init['js_init_init_check'] = r'''
@@ -266,7 +266,7 @@ document.pyspy_prevent_click = function(e){
 '''
 
 
-js_capture = r'''
+js_start_listner = r'''
 document.body.style.cursor = "pointer";
 document.pyspy_spy_listener = null;
 document.addEventListener('click', document.pyspy_prevent_click,false);
@@ -276,7 +276,7 @@ document.addEventListener('submit', document.pyspy_prevent_click,false);
 document.addEventListener('mouseover', document.pyspy_mouse_over, false);
 '''
 
-js_async_lsitner = r'''
+js_listner_capture = r'''
    var callback = arguments[arguments.length - 1];
    if(!document.pyspy_mouse_over){
         callback('{error:"*** spy listner not running ***"}');

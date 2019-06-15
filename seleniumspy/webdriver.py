@@ -14,14 +14,15 @@ _MAC_SAFARI_DRIVER_PATH = '/usr/bin/safaridriver'
 
 
 class WebDriver():
-    def __init__(self, browser, headless = False):
-        self.driver = self._web_driver(browser, headless)
+    def __init__(self, browser, headless=False, executable_path=None):
+        self.driver = self._web_driver(browser, headless, executable_path)
 
-    def _web_driver(self, brw, headless):
-        browser = self._identify_browser(brw)
-        os = self._identify_os()
-        exe_path = self._find_executable_path(browser, os)
-        kwargs = {'executable_path':exe_path}
+    def _web_driver(self, brw, headless, executable_path):
+        if not executable_path:
+            browser = self._identify_browser(brw)
+            os = self._identify_os()
+            executable_path = self._find_executable_path(browser, os)
+        kwargs = {'executable_path': executable_path}
         
         if browser == 'chromedriver':
             if headless:
