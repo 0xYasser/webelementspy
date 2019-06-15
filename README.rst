@@ -13,9 +13,9 @@ Install:
     $ pip install -r requirements.txt
 
 
-===
+====
 usage:
-===
+====
 
 .. code-block:: bash
         $ python spycli.py -h
