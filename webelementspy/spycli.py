@@ -14,8 +14,8 @@ import argparse
 import json
 
 
-defaults = {'live': False, 'browser': 'chrome',
-            'executable': None, 'url': 'https://github.com'}
+defaults = {'live': False, 'url': 'https://github.com', 'browser': 'chrome',
+            'executable': None}
 
 class SpyCLI():
     def __init__(self, args):
@@ -69,16 +69,15 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='spy on webpages to get id, xpath..etc for automation')
 
   parser.add_argument(
+      '-l', '--live', help='show IDs on mouseover events', action='store_true')
+  parser.add_argument(
+      '-u', '--url', help='initial navigate url', action='store')
+
+  parser.add_argument(
       '-b', '--browser', help='specify browser to run', action='store')
   
   parser.add_argument(
       '-e', '--executable', help='specify webdriver executable path', action='store')
-
-  parser.add_argument(
-      '-u', '--url', help='initial navigate url', action='store')
-  
-  parser.add_argument(
-      '-l', '--live', help='show IDs on mouseover events', action='store_true')
 
   args = parser.parse_args()
 

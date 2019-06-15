@@ -15,21 +15,33 @@ Install:
 
 
 ====
-usage:
+Usage:
 ====
+
+there are two modes:
+    1. onlcick (default)
+        will output ids only on clicked objects
+    2. live
+        will output ids on moseover events and on click event will output ids in different color
+
+defaults:
+.. code-block:: gherkin
+
+        defaults = {'live': False, 'url': 'https://github.com', 'browser': 'chrome', 'executable': None }
 
 .. code-block:: bash
 
+        $ cd webelementspy
         $ python spycli.py -h
-        usage: spycli.py [-h] [-b BROWSER] [-e EXECUTABLE] [-u URL] [-l]
+        usage: spycli.py [-h] [-l] [-u URL] [-b BROWSER] [-e EXECUTABLE]
 
         spy on webpages to get id, xpath..etc for automation
 
         optional arguments:
         -h, --help            show this help message and exit
-        -b BROWSER, --browser BROWSER
-                        specify browser to run
-        -e EXECUTABLE, --executable EXECUTABLE
-                        specify webdriver executable path
-        -u URL, --url URL     initial navigate url
         -l, --live            show IDs on mouseover events
+        -u URL, --url URL     initial navigate url
+        -b BROWSER, --browser BROWSER
+                                specify browser to run
+        -e EXECUTABLE, --executable EXECUTABLE
+                                specify webdriver executable path
