@@ -28,11 +28,9 @@ defaults:
 
 .. code-block:: gherkin
 
-        defaults = {'live': False, 'url': 'https://github.com', 'browser': 'chrome', 'executable': None }
+        defaults = {'live': False, 'url': 'https://github.com',
+            'browser': 'chrome', 'wp': (0, 0), 'ws': (898, 823), 'executable': None}
 
-====
-Run:
-====
 .. code-block:: bash
 
         $ cd webelementspy
@@ -42,10 +40,25 @@ Run:
         spy on webpages to get id, xpath..etc for automation
 
         optional arguments:
-        -h, --help            show this help message and exit
-        -l, --live            show IDs on mouseover events
-        -u URL, --url URL     initial navigate url
-        -b BROWSER, --browser BROWSER
+          -h, --help            show this help message and exit
+          -l, --live            show IDs on mouseover events
+          -u URL, --url URL     initial navigate url
+          -b BROWSER, --browser BROWSER 
                                 specify browser to run
-        -e EXECUTABLE, --executable EXECUTABLE
-                                specify webdriver executable path
+          -wp WINDOW_POSITION, --window-position WINDOW_POSITION
+                                pecify brwoser window position
+          -ws WINDOW_SIZE, --window-size WINDOW_SIZE
+                                specify brwoser window size
+          -e EXECUTABLE, --executable EXECUTABLE
+                                    specify webdriver executable path
+
+====
+Run:
+====
+.. code-block:: bash
+
+        $ cd webelementspy
+        $ python spycli.py -l
+
+.. image:: https://0sl.s3.amazonaws.com/tP1CHsD.gif
+
