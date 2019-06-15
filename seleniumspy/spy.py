@@ -10,23 +10,24 @@ This file contain spy functions
 """
 import webdriver as wd
 import jsscripts as js
+import os
 
 class Spy():
-    def __init__(self, browser, url):
-        self.driver = wd.WebDriver(str(browser)).driver
+    def __init__(self, browser, url, executable_path=None):
+        self.driver = wd.WebDriver(
+            browser, executable_path=executable_path).driver
         self._navigate(url)
         self.init()
-        self.listen()
 
     def init(self):
         init_scripts = '\n'.join(s for s in js.js_init.values())
         self._execute(init_scripts)
 
-    def listen(self):
-        self._execute(js.js_start_listner)
-
     def capture(self):
-        self._execute_async(js.js_listner_capture)
+        return self._execute_async(js.js_listner_capture)
+
+    def close(self):
+        self.driver.close()
 
     def _navigate(self, url):
         self.driver.get(url)
@@ -35,4 +36,5 @@ class Spy():
         self.driver.execute_script(script)
 
     def _execute_async(self, script):
-        self.driver.execute_async_script(script)
+        return self.driver.execute_async_script(script)
+

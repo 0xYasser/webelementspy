@@ -9,7 +9,7 @@ This file contain JS scripts to be injected to webdriver
 :license: MIT, see LICENSE for more details.
 """
 
-__all__ = ['js_init', 'js_start_listner', 'js_listner_capture', 'js_raw_html']
+__all__ = ['js_init', 'js_listner_capture', 'js_raw_html']
 
 js_init = {}
 js_init['js_init_init_check'] = r'''
@@ -97,8 +97,9 @@ document.pyspy_xp_precise = function(xpath, e) {
 '''
 
 js_init['js_init_generate_ids'] = r'''
-document.pyspy_generate_ids = function(elem){
+document.pyspy_generate_ids = function(e){
     document.IDs_builder = new Object()
+    document.IDs_builder.EVENT = e.type
     document.IDs_builder.PATHS = {}
 
     document.IDs_builder.add = function(name, finder) {
@@ -113,12 +114,12 @@ document.pyspy_generate_ids = function(elem){
     else{
         jsonParser = JSON.stringify;
     }
-    document.IDs_builder.add('id', document.pyspy_find_by_id(elem))
-    document.IDs_builder.add('name', document.pyspy_find_by_name(elem))
-    document.IDs_builder.add('linkText', document.pyspy_find_by_linkText(elem))
-    document.IDs_builder.add('css', document.pyspy_find_by_css(elem))
-    document.IDs_builder.add('xpath:link', document.pyspy_find_by_xpath_link(elem))
-    document.IDs_builder.add('xpath:img', document.pyspy_find_by_xpath_img(elem))
+    document.IDs_builder.add('id', document.pyspy_find_by_id(e.target))
+    document.IDs_builder.add('name', document.pyspy_find_by_name(e.target))
+    document.IDs_builder.add('linkText', document.pyspy_find_by_linkText(e.target))
+    document.IDs_builder.add('css', document.pyspy_find_by_css(e.target))
+    document.IDs_builder.add('xpath:link', document.pyspy_find_by_xpath_link(e.target))
+    document.IDs_builder.add('xpath:img', document.pyspy_find_by_xpath_img(e.target))
     
     return jsonParser(document.IDs_builder);
 }
@@ -228,16 +229,40 @@ document.pyspy_find_by_css = function css_attr(elem) {
 js_init['js_init_mouse_over'] = r'''
 document.pyspy_mouse_over = function(e){
     if(e.target == document.documentElement) return
-    e.target.addEventListener('click', document.pyspy_prevent_click,false);
-    e.target.addEventListener('mousedown', document.pyspy_prevent_click,false);
-    e.target.addEventListener('mouseup', document.pyspy_prevent_click,false);
-    e.target.addEventListener('submit', document.pyspy_prevent_click,false);
     document.pyspy_last_elem = e.target;
     document.pyspy_border_color = e.target.style.outline;
     document.pyspy_highlight_color = e.target.style.backgroundColor;
-    e.target.style.outline = "medium solid green";
     e.target.style.backgroundColor = "#FDFF47";
-    document.pyspy_spy_listener =  document.pyspy_generate_ids(e.target);
+    document.pyspy_spy_listener =  document.pyspy_generate_ids(e);
+}
+'''
+
+js_init['js_init_onmouseout'] = r'''
+    document.onmouseout = function(ev){
+    if(document.pyspy_last_elem){
+        ev.target.style.outline = document.pyspy_border_color;
+        ev.target.style.backgroundColor = document.pyspy_highlight_color;
+    }
+}
+'''
+
+js_init['js_init_onclick'] = r'''
+    document.pyspy_click = function(e){
+    if(e.target == document.documentElement) return
+      document.pyspy_last_elem = e.target;
+      document.pyspy_border_color = e.target.style.outline;
+      document.pyspy_highlight_color = e.target.style.backgroundColor;
+      e.target.style.backgroundColor = "#7CFC00";
+      document.pyspy_spy_listener =  document.pyspy_generate_ids(e);
+}
+'''
+
+js_init['js_init_onmouseup'] = r'''
+    document.onmouseup = function(ev){
+    if(document.pyspy_last_elem){
+        ev.target.style.outline = document.pyspy_border_color;
+        ev.target.style.backgroundColor = document.pyspy_highlight_color;
+    }
 }
 '''
 
@@ -245,41 +270,17 @@ js_init['js_init_cursor'] = r'''
 document.pyspy_cursor = document.body.style.cursor;
 '''
 
-js_init['js_init_prevent_click'] = r'''
-document.pyspy_prevent_click = function(e){
-    document.pyspy_spy_listener = "*** spy listner is over ***";
-    document.removeEventListener('mouseover', document.pyspy_mouse_over);
-    document.removeEventListener('click', document.pyspy_prevent_click,false);
-    document.removeEventListener('mousedown', document.pyspy_prevent_click,false);
-    document.removeEventListener('mouseup', document.pyspy_prevent_click,false);
-    document.removeEventListener('submit', document.pyspy_prevent_click,false);
-
-    e.target.removeEventListener('mouseover', document.pyspy_mouse_over);
-    e.target.style.outline = document.pyspy_border_color;
-    e.target.style.backgroundColor = document.pyspy_highlight_color;
-    document.body.style.cursor =  document.pyspy_cursor;
-    if(e.stopPropagation) e.stopPropagation();
-    if(e.preventDefault) e.preventDefault();
-    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
-    return false;
-}
-'''
-
-
-js_start_listner = r'''
+js_init['js_init_start_listner'] = r'''
 document.body.style.cursor = "pointer";
 document.pyspy_spy_listener = null;
-document.addEventListener('click', document.pyspy_prevent_click,false);
-document.addEventListener('mousedown', document.pyspy_prevent_click,false);
-document.addEventListener('mouseup', document.pyspy_prevent_click,false);
-document.addEventListener('submit', document.pyspy_prevent_click,false);
+document.addEventListener('click', document.pyspy_click,false);
 document.addEventListener('mouseover', document.pyspy_mouse_over, false);
 '''
 
 js_listner_capture = r'''
    var callback = arguments[arguments.length - 1];
    if(!document.pyspy_mouse_over){
-        callback('{error:"*** spy listner not running ***"}');
+        callback('{"pyspy_error":"*** spy listner not running ***"}');
         return;
    }
    var waitForActions = function(){
