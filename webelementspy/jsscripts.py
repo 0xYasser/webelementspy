@@ -116,9 +116,9 @@ document.pyspy_generate_ids = function(e){
     }
     document.IDs_builder.add('id', document.pyspy_find_by_id(e.target))
     document.IDs_builder.add('name', document.pyspy_find_by_name(e.target))
-    document.IDs_builder.add('linkText', document.pyspy_find_by_linkText(e.target))
     document.IDs_builder.add('css', document.pyspy_find_by_css(e.target))
     document.IDs_builder.add('xpath:link', document.pyspy_find_by_xpath_link(e.target))
+    document.IDs_builder.add('xpath:innerText', document.pyspy_find_by_xpath_innerText(e.target))
     document.IDs_builder.add('xpath:img', document.pyspy_find_by_xpath_img(e.target))
     
     return jsonParser(document.IDs_builder);
@@ -143,17 +143,12 @@ document.pyspy_find_by_name = function name(elem) {
 }
 '''
 
-js_init['js_init_find_by_linkText'] = r'''
-document.pyspy_find_by_linkText = function linkText(elem) {
-  if (elem.nodeName == 'A') {
-    let text = elem.textContent
-    if (!text.match(/^\s*$/)) {
-      return (
-        text.replace(/\xA0/g, ' ').replace(/^\s*(.*?)\s*$/, '$1')
-      )
-    }
+js_init['js_init_find_by_xpath_innerText'] = r'''
+document.pyspy_find_by_xpath_innerText = function xpath_innerText(elem) {
+  if (elem.innerText) {
+    return `//${elem.nodeName.toLowerCase()}[contains(.,'${elem.innerText}')]`
   }
-  return null
+    return null
 }
 '''
 

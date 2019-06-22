@@ -26,12 +26,7 @@ AUTHOR = 'Yasser A'
 EMAIL = 'yalshalaan@gmail.com'
 REQUIRES_PYTHON = '>=3.7.0'
 VERSION = None
-
-# What packages are required for this module to be executed?
-REQUIRED = ['selenium']
-
-# What packages are optional?
-EXTRAS = {'Direct DB Injection': ['sqlalchemy']}
+REQUIRED = None
 
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------
@@ -43,7 +38,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 # Import the README and use it as the long-description.
 # Note: this will only work if 'README.md' is present in your MANIFEST.in file!
 try:
-    with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+    with io.open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
         long_description = '\n' + f.read()
 except FileNotFoundError:
     long_description = DESCRIPTION
@@ -56,6 +51,10 @@ if not VERSION:
         exec(f.read(), about)
 else:
     about['__version__'] = VERSION
+
+# get requirements
+lineiter = (line.strip() for line in open('requirements.txt'))
+REQUIRED = [line for line in lineiter if line and not line.startswith("#")]
 
 with io.open(os.path.join(here, 'LICENSE'), encoding='utf-8') as f:
     license = f.read()
@@ -118,7 +117,6 @@ setup(
     #     'console_scripts': ['mycli=mymodule:cli'],
     # },
     install_requires=REQUIRED,
-    extras_require=EXTRAS,
     include_package_data=True,
     license=license,
     classifiers=[
